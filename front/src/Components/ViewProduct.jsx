@@ -25,15 +25,18 @@ class ViewProduct extends React.Component {
 
     render() {
         return(
-            <div>
-                <span>{ this.props.data.id } : { this.props.data.text }</span>
-                <span className="deleteButton" onClick={this.handleDelete}>X</span>
-                <span>
-                    <input type="text" className="update-input" value={this.state.updateText} onChange={e => this.handleInput(e)} />
-                </span>
-                <span>
-                    <Button type="submit" onClick={this.handleUpdate}>更新</Button>
-                </span>
+            <div className="listItem">
+                <div className="itemText">
+                    <p>{this.props.data.text}<span className="deleteButton" onClick={this.handleDelete}>X</span></p>
+                </div>
+                <div className="textBox">
+                    <span>
+                        <input type="text" className="update-input" value={this.state.updateText} placeholder={this.props.data.text} onChange={e => this.handleInput(e)} />
+                    </span>
+                    <span>
+                        <Button type="submit" onClick={this.handleUpdate}>更新</Button>
+                    </span>
+                </div>
             </div>
         )
     }
