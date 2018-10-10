@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body{
+        background:#ababab;
+      }
+    </style>
+   <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>8channel</h1>
+    <%# 投稿した内容がここに %>
+    <div>
+      <% if(posts) { %>
+        <% for(var i = 0; i < posts.length; i++) { %>
+          <h2>
+            <%= posts[i].name %>
+          </h2>
+          <p>
+            <%= posts[i].text %>
+          </p>
+        <% } %>
+      <% } %>
+    </div>
+    <%# 新しく追加した投稿用のフォーム %>
+    <form action="/post" method="post">
+      <input type="text" name="name" placeholder="名前を入力"/>
+      <input type="text" name="text" />
+      <input type="submit" value="送信"/>
+    </form>
+  </body>
+</html>
