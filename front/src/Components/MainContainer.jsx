@@ -17,7 +17,7 @@ class MainContainer extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/chat')
+        axios.get('http://localhost:8080/api/chat')
             .then((results) => {
                 console.log(results);
                 this.setState({products: results.data.posts});
@@ -29,7 +29,7 @@ class MainContainer extends React.Component {
     }
 
     createProduct = (product) => {
-        axios.post('http://localhost:3000/chat', {name: "created", text: product})
+        axios.post('http://localhost:8080/api/chat', {name: "created", text: product})
             .then((response) => {
                 console.log(response);
                 const newData = update(this.state.products, {$push:[response.data.data]})
@@ -41,7 +41,7 @@ class MainContainer extends React.Component {
     }
 
     deleteProduct = (id) => {
-        axios.delete(`http://localhost:3000/chat/${id}`)
+        axios.delete(`http://localhost:8080/api/chat/${id}`)
             .then((response) => {
                 const productIndex = this.state.products.findIndex(x => x.id ===id)
                 const deletedProducts = update(this.state.products, {$splice: [[productIndex, 1, ]]})
@@ -54,7 +54,7 @@ class MainContainer extends React.Component {
     }
 
     updateProduct = (id, product) => {
-        axios.put(`http://localhost:3000/chat/${id}`,{name: "updated", text: product})
+        axios.put(`http://localhost:8080/api/chat/${id}`,{name: "updated", text: product})
             .then((response) => {
                 console.log(response);
                 const productIndex = this.state.products.findIndex(x => x.id ===id)

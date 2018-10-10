@@ -24,3 +24,13 @@ services:
       - ./mysql/data:/var/lib/mysql # データの永続化
       - ./mysql/sqls:/docker-entrypoint-initdb.d # 初期データ投入
 #    restart: always
+
+  nginx:
+    build: ./nginx
+    container_name: 8chan_nginx
+    ports:
+      - "8080:80"
+    links:
+      - api
+    volumes:
+      - ./front/build:/app:ro
