@@ -49,7 +49,15 @@ router.post('/', function(req, res, next) {
             res.status(500).json({"error": err});
             cb(err);
           } else {
-            res.json({"posts": results});
+            res.json({
+              "data":
+                 {
+                  "id": results.insertId,
+                  "text": text,
+                  "name": name,
+                  },
+               "results": results
+              });
             cb(null);
           }
         });
@@ -101,7 +109,14 @@ router.put('/:id', function(req, res, next) {
             res.status(500).json({"error": err});
             cb(err);
           }
-          res.json({"posts": results});
+          res.json({
+            "data": 
+              {
+                "id": Number(id),
+                "text": text,
+                "name": name,
+              },
+            "results": results});
           cb(null);
         });
       }
