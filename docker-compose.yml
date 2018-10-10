@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  api:
+    build: ./api
+    container_name: 8chan_api
+    ports:
+      - "3000:3000"
+    links:
+      - mysql
+    volumes:
+      - ./api:/app
+#    stdin_open: true
+#    tty: true
+
+  mysql:
+    build: ./mysql
+    container_name: 8chan_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: wataru0224
+    volumes:
+      - ./mysql/data:/var/lib/mysql # データの永続化
+      - ./mysql/sqls:/docker-entrypoint-initdb.d # 初期データ投入
+#    restart: always
