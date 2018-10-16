@@ -74,15 +74,16 @@ router.put('/:id', function(req, res, next) {
     [
       cb => {
         let text = req.body.text;
+        let priority = req.body.priority;
         let name = req.body.name;
-        if (text.length == 0 || name.length ==0) {
+        if (text.length == 0 || priority.length == 0 || name.length ==　0) {
           res.status(500).json({"error": "empty value"});
           cb(500);
         } else {
-          cb(null, text, name);
+          cb(null, text, priority,  name);
         }
       },
-      (text, name, cb) => {
+      (text, priority, name, cb) => {
         let id = req.params.id;
         db.pool.query('SELECT * FROM posts where id=?;',
           [req.params.id], (err, results, fields)=>{
@@ -94,12 +95,11 @@ router.put('/:id', function(req, res, next) {
               cb(500);
             }
             else{
-              cb(null, text, name, id);
+              cb(null, text, priority, name, id);
             } 
         });
       },
-      (text, name, id, cb) => {
-        let priority = req.body.priority;
+      (text, priority, name, id, cb) => {
         db.pool.query('UPDATE posts SET ? where id=?;',
           [
             {
