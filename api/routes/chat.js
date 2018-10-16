@@ -34,17 +34,18 @@ router.post('/', function(req, res, next) {
     [
       cb => {
         let text = req.body.text;
+        let priority = req.body.priority || 0;
         let name = req.body.name;
         if (text.length == 0 || name.length == 0) {
           res.status(500).json({"error": "empty value"});
           cb(500);
         } else {
-          cb(null, text, name);
+          cb(null, text, priority, name);
         }
       },
-      (text, name, cb) => {
-        db.pool.query('INSERT INTO posts (text,name) values (?,?)',
-          [text, name], (err, results, fields)=>{
+      (text, priority, name, cb) => {
+        db.pool.query('INSERT INTO posts (text,priority,name) values (?,?,?)',
+          [text, priority, name], (err, results, fields)=>{
           if (err) {
             res.status(500).json({"error": err});
             cb(err);
@@ -54,6 +55,7 @@ router.post('/', function(req, res, next) {
                  {
                   "id": results.insertId,
                   "text": text,
+                  "priority": priority,
                   "name": name,
                   },
                "results": results
@@ -97,10 +99,12 @@ router.put('/:id', function(req, res, next) {
         });
       },
       (text, name, id, cb) => {
+        let priority = req.body.priority;
         db.pool.query('UPDATE posts SET ? where id=?;',
           [
             {
               "text": text,
+              "priority": priority,
               "name": name,
             },
             id
@@ -114,6 +118,7 @@ router.put('/:id', function(req, res, next) {
               {
                 "id": Number(id),
                 "text": text,
+                "priority": priority,
                 "name": name,
               },
             "results": results});
