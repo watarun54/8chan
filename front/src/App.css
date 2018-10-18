@@ -30,33 +30,3 @@
     transform: rotate(360deg);
   }
 }
-
-.app-main {
-  margin-top: 37px;
-  width:auto;
-  height: auto;
-  justify-content: space-around;
-}
-
-.productList .update-input {
-  border: solid 1px gray;
-  margin-right: 11px;
-}
-
-.productList .listItem {
-  margin-bottom: 30px;
-}
-
-.productList .itemText {
-  font-size: 20px;
-}
-
-.deleteButton {
-  padding: 10px;
-  font-size: 20px;
-  color: red;
-}
-
-.form-area {
-  margin-bottom: 32px;
-}

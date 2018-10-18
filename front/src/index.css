@@ -12,3 +12,111 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.App {
+  background-color: #f5f5dc;
+}
+
+/* FormContainerのデザイン　*/
+.new-task-container {
+  padding: 28px 0px 42px 0px;
+}
+
+/* MainContainerのデザイン */
+.sp-main-container {
+  padding:42px 0 38px 0;
+}
+
+.pc-main-container {
+  padding-bottom: 38px;
+}
+
+.pc-main-container h4 {
+  margin: 0;
+  font-size: 24px;
+  border-bottom: solid;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  color: #6c757d;
+}
+
+.nav-area {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background-color: #f5f5dc;
+}
+
+.nav-area .nav-item {
+  cursor: pointer;
+  color: #6c757d;
+}
+
+/* 各カードのリストをスクロール可能に */
+
+.itemList {
+  overflow: auto;
+  height: 676px;
+}
+
+.itemList p {
+  color: #f5f5dc;
+}
+
+/* 各カードの色を指定 */
+
+div.eme-imp-card.card { 
+  background-color: #f08080;
+  border-color: #f5f5dc; 
+}
+
+div.eme-card.card { 
+  background-color: #f4a460;
+  border-color: #f5f5dc;
+}
+
+div.imp-card.card { 
+  background-color: #66cdaa;
+  border-color: #f5f5dc; 
+}
+
+/* priorityを選択するプルダウンボタンのデザイン */
+
+div.dropdown-menu.show {
+  padding: 0px;
+  height: 26px;
+  display: inline-block;
+  min-width: 100%;
+}
+
+.dropdown-menu .dropdown-item {
+  height: 100%;
+  width: 30px;
+  padding: 0px; 
+  cursor: pointer;
+  border: solid 0.5px #f5f5dc;
+}
+
+.dropdown-menu .eme-imp-button {
+  background-color: red;
+}
+
+.dropdown-menu .eme-imp-button:hover {
+  background-color: #f08080;
+}
+
+.dropdown-menu .eme-button {
+  background-color: #ffa500;
+}
+
+.dropdown-menu .eme-button:hover {
+  background-color: #f0e68c;
+}
+
+.dropdown-menu .imp-button {
+  background-color: green;
+}
+
+.dropdown-menu .imp-button:hover {
+  background-color: #66cdaa;
+}
