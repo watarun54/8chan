@@ -17,10 +17,16 @@ class Important extends React.Component {
     }
 
     handleUpdate = () => {
+        let selectedPriorityChanged = 1;
+        if (this.state.selectedPriority === this.props.item.priority) {
+            selectedPriorityChanged = 0;
+        }
+        let updateTextChanged = 1;
         if (this.state.updateText.length === 0) {
-            this.props.handleUpdate(this.props.item.id, this.props.item.text, this.state.selectedPriority);
+            updateTextChanged = 0;
+            this.props.handleUpdate(this.props.item.id, this.props.item.text, this.state.selectedPriority, updateTextChanged, selectedPriorityChanged);
         } else {
-            this.props.handleUpdate(this.props.item.id, this.state.updateText, this.state.selectedPriority);
+            this.props.handleUpdate(this.props.item.id, this.state.updateText, this.state.selectedPriority, updateTextChanged, selectedPriorityChanged);
         }
         this.setState({ updateText: '', selectedPriority: this.props.item.priority });
     }

@@ -32,11 +32,6 @@ export const fetchList = () => {
                 console.log(res.data);
                 const response = res.data.posts;
                 dispatch(receiveData(null, response.reverse()));
-                let todo_updated = response.filter((ele) => {
-                    return (ele.name === 'updated');
-                })
-        
-                console.log(todo_updated);
             }).catch(err => 
                 dispatch(receiveData(err))
             )
@@ -57,7 +52,7 @@ export const createProduct = (product, selectedPriority) => {
                 console.log("create and set");
             }).catch(err => {
                 dispatch(receiveData(err)) 
-                console.log(err);   
+                console.log(err);
             })
         
         dispatch(finishRequest(todo));

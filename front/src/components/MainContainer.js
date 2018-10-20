@@ -7,12 +7,15 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col } from 
 import MediaQuery from 'react-responsive';
 import classnames from 'classnames';
 
+import { Alert } from 'reactstrap';
+
 
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: '1'
+      activeTab: '1',
+      visible: false
     }
   }
 
@@ -21,31 +24,49 @@ class MainContainer extends React.Component {
   }
 
   handleSubmit = (item, selectedPriority) => {
-    this.props.onCreate(item, selectedPriority);
+    if (item.length === 0) {
+      this.setState({visible: true});
+    } else {
+      this.props.onCreate(item, selectedPriority);
+    }
   }
 
   handleDelete = (id) => {
     this.props.onDelete(id);
   }
 
-  handleUpdate = (id, updateText, updatedPriority) => {
-    this.props.onUpdate(id, updateText, updatedPriority);
+  handleUpdate = (id, updateText, updatedPriority, updateTextChange,selectedPriorityChanged) => {
+    console.log(updateTextChange);
+    console.log(selectedPriorityChanged);
+    if (updateTextChange === 0 && selectedPriorityChanged === 0) {
+      this.setState({visible: true});
+      console.log("done");
+    } else {
+      this.props.onUpdate(id, updateText, updatedPriority);
+    }
   }
 
   toggle = (tab) => {
     if (this.state.activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
+  }
+
+  onDismiss = () => {
+    this.setState({ visible: false });
   }
 
   render() {
     return (
         <div>
           
-
+        {/*スマホ版 */}
         <MediaQuery maxWidth={767}>
+        <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+          テキストを入力してください
+        </Alert>
         <div className="nav-area">
         <Nav　tabs>
           <NavItem>
@@ -139,8 +160,11 @@ class MainContainer extends React.Component {
 
 
 
-
+        {/*PC版 */}
         <MediaQuery minWidth={768}>
+        <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+          テキストを入力してください
+        </Alert>
         <div className="pc-main-container">
         <Container>
         <FormContainer handleSubmit={this.handleSubmit} />
