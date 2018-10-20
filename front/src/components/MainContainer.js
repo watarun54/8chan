@@ -64,9 +64,6 @@ class MainContainer extends React.Component {
           
         {/*スマホ版 */}
         <MediaQuery maxWidth={767}>
-        <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
-          テキストを入力してください
-        </Alert>
         <div className="nav-area">
         <Nav　tabs>
           <NavItem>
@@ -101,6 +98,9 @@ class MainContainer extends React.Component {
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
           <div className="sp-main-container">
+          <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+            テキストを入力してください
+          </Alert>
             <Container>
               <Row>
                 <Col sm={12}>
@@ -120,6 +120,9 @@ class MainContainer extends React.Component {
 
           <TabPane tabId="2">
           <div className="sp-main-container">
+          <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+            テキストを入力してください
+          </Alert>
             <Container>
               <Row>
                 <Col sm={12}>
@@ -139,6 +142,9 @@ class MainContainer extends React.Component {
 
           <TabPane tabId="3">
           <div className="sp-main-container">
+          <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+            テキストを入力してください
+          </Alert>
             <Container>
               <Row>
                 <Col sm={12}>
