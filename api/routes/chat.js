@@ -44,7 +44,7 @@ router.post('/', function(req, res, next) {
         }
       },
       (text, priority, name, cb) => {
-        db.pool.query('INSERT INTO posts (text,priority,name) values (?,?,?)',
+        db.pool.query('INSERT INTO posts (text,priority,name) values (?,?,?);',
           [text, priority, name], (err, results, fields)=>{
           if (err) {
             res.status(500).json({"error": err});
