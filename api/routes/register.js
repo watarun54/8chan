@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-    db.pool.query('SELECT * FROM users;', (err, results, fields)=>{
+    db.pool.query('SELECT * FROM users;', (err, results, fields) => {
         if (err) {
           res.status(500).json({"error": err});
         } else {
