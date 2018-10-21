@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
         if (err) {
           res.status(500).json({"error": err});
         } else {
-          res.json({"users": results});
+          res.json({"results": results});
         }
     });
 });
