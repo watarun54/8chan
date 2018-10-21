@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/*
+
 router.get('/', function(req, res, next) {
   connection.query('SELECT * FROM posts;', (err, results, fields)=>{
     if(err)
@@ -34,5 +35,7 @@ router.post('/post', function(req, res, next) {
           return next(new Error())
         })
   })
+  
+  */
 
 module.exports = router;
