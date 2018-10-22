@@ -6,9 +6,9 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     if (req.session.user_id) {
-        res.json({"result": "success"});
+        res.json({"result": "success", "user_id": req.session.user_id});
     } else {
-        res.json({"result": "expire"})
+        res.json({"result": "expire", "user_id": null})
     }
 });
 
@@ -23,7 +23,7 @@ router.post('/', function(req, res, next) {
           let userId = results.length ? results[0].id : false;
           if (userId) {
             req.session.user_id = userId;
-            res.json({"result": userId});
+            res.json({"user_id": userId});
           } else {
             res.json({"error": "NotExist"})
           }
