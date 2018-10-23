@@ -3,7 +3,7 @@ var db = require('../db');
 var async = require('async');
 var router = express.Router();
 
-
+/*
 router.get('/', function(req, res, next) {
     if (req.session.user_id) {
         res.json({"result": "success", "user_id": req.session.user_id});
@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
         res.json({"result": "expire", "user_id": null})
     }
 });
+*/
 
 router.post('/', function(req, res, next) {
     let email = req.body.email;
@@ -22,7 +23,6 @@ router.post('/', function(req, res, next) {
         } else {
           let userId = results.length ? results[0].id : false;
           if (userId) {
-            req.session.user_id = userId;
             res.json({"user_id": userId});
           } else {
             res.json({"error": "NotExist"})
