@@ -1,10 +1,11 @@
 var express = require('express');
-var db = require('../db');
 var async = require('async');
+var db = require('../db');
+var verifyToken = require('./verifyToken');
 var router = express.Router();
 
 /*index */
-router.get('/', function(req, res, next) {
+router.get('/', verifyToken, function(req, res, next) {
   db.pool.query('SELECT * FROM posts;', (err, results, fields)=>{
     if (err) {
       res.status(500).json({"error": err});
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 /*detail */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', verifyToken, function(req, res, next) {
   db.pool.query('SELECT * FROM posts where id=?;',
     [req.params.id], (err, results, fields)=>{
     if (err) {
@@ -29,7 +30,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 /*create */
-router.post('/', function(req, res, next) {
+router.post('/', verifyToken, function(req, res, next) {
   async.waterfall(
     [
       cb => {
@@ -69,7 +70,7 @@ router.post('/', function(req, res, next) {
 });
 
 /*update */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', verifyToken, function(req, res, next) {
   async.waterfall(
     [
       cb => {
@@ -130,7 +131,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 /*destroy */
-router.delete("/:id", function(req, res, next) {
+router.delete("/:id", verifyToken, function(req, res, next) {
   db.pool.query("DELETE from posts where id=?;",
     [req.params.id], (err, results, fields) => {
       if (err) {
