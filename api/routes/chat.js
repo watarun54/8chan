@@ -37,16 +37,17 @@ router.post('/', verifyToken, function(req, res, next) {
         let text = req.body.text;
         let priority = req.body.priority || 0;
         let name = req.body.name;
+        let user_id = req.body.user_id || 1;
         if (text.length == 0 || name.length == 0) {
           res.status(500).json({"error": "empty value"});
           cb(500);
         } else {
-          cb(null, text, priority, name);
+          cb(null, text, priority, name, user_id);
         }
       },
-      (text, priority, name, cb) => {
-        db.pool.query('INSERT INTO posts (text,priority,name) values (?,?,?);',
-          [text, priority, name], (err, results, fields)=>{
+      (text, priority, name, user_id, cb) => {
+        db.pool.query('INSERT INTO posts (text,priority,name,user_id) values (?,?,?,?);',
+          [text, priority, name, user_id], (err, results, fields)=>{
           if (err) {
             res.status(500).json({"error": err});
             cb(err);
@@ -58,6 +59,7 @@ router.post('/', verifyToken, function(req, res, next) {
                   "text": text,
                   "priority": priority,
                   "name": name,
+                  "user_id": user_id
                   },
                "results": results
               });
@@ -75,16 +77,17 @@ router.put('/:id', verifyToken, function(req, res, next) {
     [
       cb => {
         let text = req.body.text;
-        let priority = req.body.priority;
+        let priority = req.body.priority || 0;
         let name = req.body.name;
-        if (text.length == 0 || priority.length == 0 || name.length ==　0) {
+        let user_id = req.body.user_id;
+        if (text.length == 0 || name.length ==　0) {
           res.status(500).json({"error": "empty value"});
           cb(500);
         } else {
-          cb(null, text, priority,  name);
+          cb(null, text, priority,  name, user_id);
         }
       },
-      (text, priority, name, cb) => {
+      (text, priority, name, user_id, cb) => {
         let id = req.params.id;
         db.pool.query('SELECT * FROM posts where id=?;',
           [req.params.id], (err, results, fields)=>{
@@ -96,17 +99,18 @@ router.put('/:id', verifyToken, function(req, res, next) {
               cb(500);
             }
             else{
-              cb(null, text, priority, name, id);
+              cb(null, text, priority, name, id, user_id);
             } 
         });
       },
-      (text, priority, name, id, cb) => {
+      (text, priority, name, id, user_id, cb) => {
         db.pool.query('UPDATE posts SET ? where id=?;',
           [
             {
               "text": text,
               "priority": priority,
               "name": name,
+              "user_id": user_id,
             },
             id
           ], (err, results, fields)=>{
@@ -121,6 +125,7 @@ router.put('/:id', verifyToken, function(req, res, next) {
                 "text": text,
                 "priority": priority,
                 "name": name,
+                "user_id": user_id
               },
             "results": results});
           cb(null);
@@ -137,12 +142,28 @@ router.delete("/:id", verifyToken, function(req, res, next) {
       if (err) {
         res.status(500).json({"error": err});
       } else if (results.affectedRows == 0) {
-        res.status(500).json({"error": "not found"});
+        res.json({"error": "not found"});
       } else {
         res.json({"results": results});
       }
     }
   );
 });
+
+/* destroy user's posts */
+router.delete("/user/:id", verifyToken, function(req, res, next) {
+  db.pool.query("DELETE from posts where user_id=?;",
+    [req.params.id], (err, results, fields) => {
+      if (err) {
+        res.status(500).json({"error": err});
+      } else if (results.affectedRows == 0) {
+        res.json({"error": "not found"});
+      } else {
+        res.json({"results": results});
+      }
+    }
+  );
+});
+
 
 module.exports = router;

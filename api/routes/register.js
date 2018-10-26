@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
                     } else if (results.length === 0) {
                         cb(null, email, password);
                     } else {
-                        res.status(500).json({"error": "exist"});
+                        res.json({"error": "すでにユーザーが存在しています"});
                         cb(500);
                     }
                 });
@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
                         cb(err);
                     } else {
                         res.json({
-                        "data":
+                        "user":
                             {
                             "id": results.insertId,
                             "email": email,
