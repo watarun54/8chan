@@ -25,6 +25,10 @@ class Register extends React.Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     onRegister = () => {
         if (this.state.email.length === 0) {
             this.setState({ message: 'emailを入力してください', visible: true });

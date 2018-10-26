@@ -21,6 +21,10 @@ class Edit extends React.Component {
         this.props.onMount();
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({ email: nextProps.user.user.email})
     }

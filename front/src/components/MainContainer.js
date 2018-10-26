@@ -25,6 +25,10 @@ class MainContainer extends React.Component {
     this.props.onMount();
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleSubmit = (item, selectedPriority) => {
     if (item.length === 0) {
       this.setState({visible: true});
