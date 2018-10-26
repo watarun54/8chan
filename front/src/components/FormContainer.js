@@ -14,7 +14,7 @@ class FormContainer extends React.Component {
 
     handleSubmit = () => {
         this.props.handleSubmit(this.state.item, this.state.selectedPriority);
-        this.setState({ item: '', selectedPriority: 0 });
+        this.setState({ item: '' });
     }
 
     handleSetPriority = (selectedPriority) => {
@@ -27,7 +27,7 @@ class FormContainer extends React.Component {
                 <InputGroup>
                     <Input value={this.state.item} placeholder="New task" onChange={(e) => this.setState({ item: e.target.value })}/>
                     <DropdownBtn selectedPriority={this.state.selectedPriority} handleSetPriority={this.handleSetPriority}/>
-                    <InputGroupAddon addonType="prepend"><Button onClick={this.handleSubmit}>Add</Button></InputGroupAddon>
+                    <InputGroupAddon addonType="prepend"><Button onClick={this.handleSubmit}>追加</Button></InputGroupAddon>
                 </InputGroup>
             </div>
         )

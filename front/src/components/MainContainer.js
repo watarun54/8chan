@@ -4,6 +4,7 @@ import Emergency from "./card-components/Emergency";
 import Important from "./card-components/Important";
 import FormContainer from './FormContainer';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import MediaQuery from 'react-responsive';
 import classnames from 'classnames';
 
@@ -15,7 +16,8 @@ class MainContainer extends React.Component {
     super(props);
     this.state = {
       activeTab: '1',
-      visible: false
+      visible: false,
+      dropdownOpen: false,
     }
   }
 
@@ -54,18 +56,46 @@ class MainContainer extends React.Component {
     }
   }
 
+  toggleMenu = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
   onDismiss = () => {
     this.setState({ visible: false });
+  }
+
+  onLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    this.props.onReset();
+    this.props.onRedirect("/login");
+  }
+
+  toAccountEdit = () => {
+    this.props.onRedirect("/edit");
   }
 
   render() {
     return (
         <div>
-          
+
+
         {/*スマホ版 */}
         <MediaQuery maxWidth={767}>
         <div className="nav-area">
         <Nav　tabs>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleMenu}>
+            <DropdownToggle nav>
+              三
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={this.toAccountEdit}>アカウント編集</DropdownItem>
+              <DropdownItem onClick={this.onLogout}>ログアウト</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
@@ -173,6 +203,10 @@ class MainContainer extends React.Component {
         </Alert>
         <div className="pc-main-container">
         <Container>
+          <div className="pc-nav-container">
+            <span className="account-edit-button" onClick={this.toAccountEdit}>アカウント編集</span>｜
+            <span className="logout-button" onClick={this.onLogout}>ログアウト</span>
+          </div>
         <FormContainer handleSubmit={this.handleSubmit} />
           <Row>
             <Col md={4}>

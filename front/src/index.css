@@ -18,6 +18,56 @@ code {
   height: 1366px;
 }
 
+/* Login */
+
+.sp-login-container {
+  padding: 44px 30px;
+}
+
+.pc-login-container {
+  padding: 44px 180px;
+}
+
+.sp-login-container h2{
+  margin-bottom: 45px;
+  color: #6c757d;
+}
+
+.pc-login-container h2{
+  margin-bottom: 45px;
+  color: #6c757d;
+}
+
+.sp-login-container .login-email {
+  color: #6c757d;
+}
+
+.pc-login-container .login-email {
+  color: #6c757d;
+  font-size: 21px;
+}
+
+.pc-login-container form {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-container .form-group {
+  margin-bottom: 46px;
+}
+
+.login-to-register {
+  margin-top: 37px;
+  color: #6c757d;
+}
+
+.login-to-register:hover{
+  cursor: pointer;
+  color: #5a6268;
+}
+
+/* Main */
 /* FormContainerのデザイン　*/
 .new-task-container {
   padding: 28px 0px 42px 0px;
@@ -83,14 +133,14 @@ div.imp-card.card {
 
 /* priorityを選択するプルダウンボタンのデザイン */
 
-div.dropdown-menu.show {
+div.priority-menu.show {
   padding: 0px;
   height: 26px;
   display: inline-block;
   min-width: 100%;
 }
 
-.dropdown-menu .dropdown-item {
+.priority-menu .dropdown-item {
   height: 100%;
   width: 30px;
   padding: 0px; 
@@ -98,26 +148,42 @@ div.dropdown-menu.show {
   border: solid 0.5px #f5f5dc;
 }
 
-.dropdown-menu .eme-imp-button {
+.priority-menu .eme-imp-button {
   background-color: red;
 }
 
-.dropdown-menu .eme-imp-button:hover {
+.priority-menu .eme-imp-button:hover {
   background-color: #f08080;
 }
 
-.dropdown-menu .eme-button {
+.priority-menu .eme-button {
   background-color: #ffa500;
 }
 
-.dropdown-menu .eme-button:hover {
+.priority-menu .eme-button:hover {
   background-color: #f0e68c;
 }
 
-.dropdown-menu .imp-button {
+.priority-menu .imp-button {
   background-color: green;
 }
 
-.dropdown-menu .imp-button:hover {
+.priority-menu .imp-button:hover {
   background-color: #66cdaa;
+}
+
+.pc-nav-container {
+  padding-top: 16px;
+}
+
+.pc-nav-container span.logout-button {
+  color: #6c757d !important;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.pc-nav-container span.account-edit-button {
+  color: #6c757d !important;
+  cursor: pointer;
+  margin-right: 10px;
 }

@@ -53,7 +53,7 @@ class DropdownBtn extends React.Component {
                 <DropdownToggle caret style={this.state.selectedColor}>
                     
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu className="priority-menu">
                     <DropdownItem className="eme-imp-button" onClick={() => this.onRadioBtnClick(0)}></DropdownItem>
                     <DropdownItem className="eme-button" onClick={() => this.onRadioBtnClick(1)}></DropdownItem>
                     <DropdownItem className="imp-button" onClick={() => this.onRadioBtnClick(2)}></DropdownItem>

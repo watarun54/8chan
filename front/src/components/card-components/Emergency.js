@@ -46,8 +46,8 @@ class Emergency extends React.Component {
                         </FormGroup>
                         <div>
                             <DropdownBtn selectedPriority={this.state.selectedPriority} handleSetPriority={this.handleSetPriority}/>{' '}
-                            <Button onClick={this.handleUpdate} size="sm">Update</Button>{' '}
-                            <Button onClick={this.handleDelete} size="sm">Delete</Button>
+                            <Button onClick={this.handleUpdate} size="sm">更新</Button>{' '}
+                            <Button onClick={this.handleDelete} size="sm">削除</Button>
                         </div>
                     </CardBody>
                 </Card>
