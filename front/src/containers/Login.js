@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import * as actionsUser from '../actions/User';
+import * as actionsTodo from '../actions/Todo';
 import Login from '../components/Login';
 import { push } from 'react-router-redux';
 
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    todo: state.todo
   }
 }
 
@@ -18,9 +20,13 @@ const mapDispatchToProps = dispatch => {
     onRedirect: (path) => {
         dispatch(push(path));
     },
-    onReset: () => {
-        dispatch(actionsUser.reset());
+    onResetDataPosts: () => {
+        dispatch(actionsTodo.resetDataPosts());
+    },
+    onResetDataUser: () => {
+        dispatch(actionsUser.resetDataUser());
     }
+    
 }
 }
 

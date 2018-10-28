@@ -21,6 +21,9 @@ class MainContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+  }
+
   componentWillMount() {
     this.props.onMount();
   }

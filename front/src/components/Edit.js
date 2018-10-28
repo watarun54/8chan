@@ -27,6 +27,12 @@ class Edit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({ email: nextProps.user.user.email})
+
+        /*
+        if (nextProps.user.userDeleted === 1) {
+          this.props.onRedirect("/login");
+        }
+        */
     }
 
     onEdit = () => {
@@ -48,11 +54,12 @@ class Edit extends React.Component {
     
     onDelete = () => {
         this.props.onDeleteUserProducts();
+        //this.setState({ modal: false });
         this.props.onDelete(this.props.user.user_id);
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-        this.props.onReset();
-        this.props.onRedirect("/login");
+        //this.props.onReset();
+        //this.props.onRedirect("/login");
     }
 
     toTop = () => {

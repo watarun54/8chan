@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
         dispatch(push(path));
     },
     onReset: () => {
-        dispatch(actionsUser.reset());
+        dispatch(actionsUser.resetDataUser());
     }
 }
 }

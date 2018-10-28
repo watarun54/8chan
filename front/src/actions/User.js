@@ -25,7 +25,7 @@ const finishRequest = user => ({
     payload: { user },
 });
 
-const receiveError = (response) => ({
+const receiveError = response => ({
     type: 'RECEIVE_ERROR_USER',
     payload: { response }
 })
@@ -33,6 +33,22 @@ const receiveError = (response) => ({
 const resetData = () => ({
     type: 'RESET_DATA_USER',
 });
+
+const receiveTokenExpired = user => ({
+    type: 'RECEIVE_TOKEN_EXPIRED',
+    payload: { user }
+});
+
+const userDeleted = () => ({
+    type: 'USER_DELETED'
+});
+
+export const resetDataUser = () => {
+    return async (dispatch, getState) => {
+        dispatch(resetData());
+        console.log("reset user data");
+    }
+}
 
 export const fetchUser = () => {
     return async (dispatch, getState) => {
@@ -46,7 +62,12 @@ export const fetchUser = () => {
         axios.get(`${LOGIN_API_URL}/${user_id}?token=${token}`)
             .then(res => {
                 console.log(res.data);
-                dispatch(receiveData(null, res.data));
+                if (res.data.user) {
+                    dispatch(receiveData(null, res.data));
+                    console.log("fetch user data");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             }).catch(err => 
                 dispatch(receiveData(err))
             )
@@ -67,7 +88,12 @@ export const editUser = (email, password) => {
         axios.put(`${LOGIN_API_URL}/${user_id}?token=${token}`,{email: email ,password: password})
             .then((res) => {
                 console.log(res.data);
-                dispatch(receiveData(null, res.data));
+                if (res.data.user) {
+                    dispatch(receiveData(null, res.data));
+                    console.log("edit user data");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             })
             .catch((err) => {
                 dispatch(receiveData(err));
@@ -86,7 +112,12 @@ export const deleteUser = () => {
 
         axios.delete(`${LOGIN_API_URL}/${user_id}?token=${token}`)
             .then((res) => {
-                console.log("delete success");
+                if (res.data.results) {
+                    console.log("delete user data");
+                    dispatch(userDeleted());
+                } else {
+                    dispatch(resetData());
+                }
             })
             .catch((err) => {
                 dispatch(receiveData(err));
@@ -107,7 +138,7 @@ export const login = (email, password) => {
                     dispatch(receiveData(null, res.data));
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('userId', res.data.user.id);
-                    console.log("login success");
+                    console.log("login user success");
                 } else {
                     dispatch(receiveError(res.data));
                 }
@@ -129,7 +160,7 @@ export const register = (email, password) => {
                 console.log(res.data);
                 if (res.data.user) {
                     dispatch(receiveData(null, res.data));
-                    console.log("register success");
+                    console.log("register user success");
                 } else {
                     dispatch(receiveError(res.data));
                 }
@@ -139,12 +170,5 @@ export const register = (email, password) => {
             })
         
         dispatch(finishRequest(user));
-    }
-}
-
-export const reset = () => {
-    return async (dispatch, getState) => {
-        dispatch(resetData());
-        console.log("reset user data");
     }
 }

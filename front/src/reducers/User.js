@@ -3,6 +3,8 @@ const initialState = {
     token: localStorage.getItem('token'),
     user_id: Number(localStorage.getItem('userId')),
     message: '',
+    tokenExpired: 0,
+    userDeleted: 0,
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -14,6 +16,8 @@ export const userReducer = (state = initialState, action) => {
           token: null,
           user_id: null,
           message: '',
+          tokenExpired: 0,
+          userDeleted: 0,
           error: false
         };
   
@@ -32,7 +36,7 @@ export const userReducer = (state = initialState, action) => {
         return {
             user: {},
             token: null,
-             user_id: null,
+            user_id: null,
             message: action.payload.response.error
         }
 
@@ -42,8 +46,27 @@ export const userReducer = (state = initialState, action) => {
             token: null,
             user_id: null,
             message: '',
+            tokenExpired: 0,
+            userDeleted: 0,
             error: false
         };
+
+      case 'RECEIVE_TOKEN_EXPIRED':
+        return {
+          user: {},
+          token: null,
+          user_id: null,
+          message: '',
+          //tokenExpired: action.payload.user.tokenExpired === 1 ? 0 : 1,
+          tokenExpired: 1,
+          userDeleted: 0
+        };
+
+      case 'USER_DELETED':
+        return {
+          user: {},
+          userDeleted: 1
+        }
   
       default:
         return state;

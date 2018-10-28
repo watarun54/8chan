@@ -3,6 +3,7 @@ const initialState = {
   emeImpList: [],
   emeList: [],
   impList: [],
+  tokenExpired: 0,
 }
 
 const getEmeImpList = (todoList) => {
@@ -48,6 +49,26 @@ export const todoReducer = (state = initialState, action) => {
             emeList: getEmeList(action.payload.response),
             impList: getImpList(action.payload.response),
         };
+
+    case 'RESET_DATA_POSTS':
+      return {
+        todoList: [],
+        emeImpList: [],
+        emeList: [],
+        impList: [],
+        tokenExpired: 0,
+        error: false
+      };
+
+    case 'RECEIVE_TOKEN_EXPIRED':
+      return {
+        todoList: [],
+        emeImpList: [],
+        emeList: [],
+        impList: [],
+        // tokenExpired: action.payload.user.tokenExpired === 1 ? 0 : 1
+        tokenExpired: 1
+      };
 
     default:
       return state;

@@ -8,6 +8,7 @@ import { push } from 'react-router-redux';
 const mapStateToProps = state => {
   return {
     user: state.user,
+    todo: state.user
   }
 }
 
@@ -26,7 +27,7 @@ const mapDispatchToProps = dispatch => {
         dispatch(push(path));
     },
     onReset: () => {
-        dispatch(actionsUser.reset());
+        dispatch(actionsUser.resetDataUser());
     },
     onDeleteUserProducts: () => {
         dispatch(actionsTodo.deleteUserProducts());

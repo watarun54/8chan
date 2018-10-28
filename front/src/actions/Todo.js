@@ -23,11 +23,26 @@ const finishRequest = todo => ({
     payload: { todo },
 });
 
+const resetData = () => ({
+    type: 'RESET_DATA_POSTS',
+});
+
+const receiveTokenExpired = user => ({
+    type: 'RECEIVE_TOKEN_EXPIRED',
+    payload: { user }
+});
+
 const filterTodoList = (todoList, user_id) => {
     const updatedList = todoList.filter((ele) => {
         return (ele.user_id === user_id);
       })
     return updatedList;
+}
+
+export const resetDataPosts = () => {
+    return async (dispatch, getState) => {
+        dispatch(resetData());
+    }
 }
 
 export const fetchList = () => {
@@ -46,9 +61,14 @@ export const fetchList = () => {
         axios.get(`${CHAT_API_URL}?token=${token}`)
             .then(res => {
                 console.log(res.data);
-                const response = res.data.posts;
-                const updatedResponse = filterTodoList(response, user_id);
-                dispatch(receiveData(null, updatedResponse.reverse()));
+                if (res.data.posts) {
+                    const response = res.data.posts;
+                    const updatedResponse = filterTodoList(response, user_id);
+                    dispatch(receiveData(null, updatedResponse.reverse()));
+                    console.log("fetch and set");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             }).catch(err => 
                 dispatch(receiveData(err))
             )
@@ -67,9 +87,13 @@ export const createProduct = (product, selectedPriority) => {
         axios.post(`${CHAT_API_URL}?token=${token}`, {text: product, priority:selectedPriority, name: "created", user_id: user_id})
             .then((res) => {
                 console.log(res.data);
-                const newData = update(todo.todoList, {$unshift:[res.data.data]})
-                dispatch(receiveData(null, newData));
-                console.log("create and set");
+                if (res.data.data) {
+                    const newData = update(todo.todoList, {$unshift:[res.data.data]})
+                    dispatch(receiveData(null, newData));
+                    console.log("create and set");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             }).catch(err => {
                 dispatch(receiveData(err)) 
                 console.log(err);
@@ -87,10 +111,15 @@ export const deleteProduct = (id) => {
 
         axios.delete(`${CHAT_API_URL}/${id}?token=${token}`)
             .then((res) => {
-                const productIndex = todo.todoList.findIndex(x => x.id === id)
-                const newData = update(todo.todoList, {$splice: [[productIndex, 1, ]]})
-                dispatch(receiveData(null, newData));
-                console.log("delete and set");
+                console.log(res.data);
+                if (res.data.results) {
+                    const productIndex = todo.todoList.findIndex(x => x.id === id)
+                    const newData = update(todo.todoList, {$splice: [[productIndex, 1, ]]})
+                    dispatch(receiveData(null, newData));
+                    console.log("delete and set");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             })
             .catch((err) => {
                 dispatch(receiveData(err));
@@ -111,7 +140,11 @@ export const deleteUserProducts = () => {
         axios.delete(`${CHAT_API_URL}/user/${user_id}?token=${token}`)
             .then((res) => {
                 console.log(res.data);
-                console.log("delete and set");
+                if (res.data.results) {
+                    console.log("delete user products");
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             })
             .catch((err) => {
                 dispatch(receiveData(err));
@@ -131,10 +164,15 @@ export const updateProduct = (id, product, selectedPriority) => {
 
         axios.put(`${CHAT_API_URL}/${id}?token=${token}`,{text: product ,priority: selectedPriority, name: "updated", user_id: user_id})
             .then((res) => {
-                const productIndex = todo.todoList.findIndex(x => x.id ===id)
-                const newData = update(todo.todoList, {[productIndex]: {$set: res.data.data}})
-                dispatch(receiveData(null, newData));
-                console.log("update and set")
+                console.log(res.data);
+                if (res.data.data) {
+                    const productIndex = todo.todoList.findIndex(x => x.id ===id)
+                    const newData = update(todo.todoList, {[productIndex]: {$set: res.data.data}})
+                    dispatch(receiveData(null, newData));
+                    console.log("update and set")
+                } else {
+                    dispatch(receiveTokenExpired(user));
+                }
             })
             .catch((err) => {
                 dispatch(receiveData(err));

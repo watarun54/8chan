@@ -28,12 +28,18 @@ class Login extends React.Component {
     componentWillMount() {
         if (Object.keys(this.props.user.user).length !== 0 && !this.props.user.token) {
             this.setState({ message: '新規登録に成功しました', visible: true});
-            this.props.onReset();
+            this.props.onResetDataUser();
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        if (this.props.user.tokenExpired === 1 || this.props.todo.tokenExpired === 1) {
+            this.props.onResetDataPosts();
+            this.props.onResetDataUser();
+            this.setState({ message: 'ログインしてください', visible: true});
+        }
+        console.log(this.props.user.tokenExpired)
     }
 
     onLogin = () => {
