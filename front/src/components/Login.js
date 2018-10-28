@@ -31,6 +31,10 @@ class Login extends React.Component {
             this.setState({ message: '新規登録に成功しました', visible: true});
             this.props.onResetDataUser();
         }
+        if (this.props.user.userDeleted === 1) {
+            this.setState({ message: this.props.user.message, visible: true});
+            this.props.onResetDataUser();
+        }
     }
 
     componentDidMount() {
