@@ -65,6 +65,10 @@ export const userReducer = (state = initialState, action) => {
       case 'USER_DELETED':
         return {
           user: {},
+          token: null,
+          user_id: null,
+          message: 'ユーザーを消去しました',
+          tokenExpired: 0,
           userDeleted: 1
         }
   

@@ -22,6 +22,7 @@ class Login extends React.Component {
         }
         if (nextProps.user.message.length !== 0) {
             this.setState({ message: nextProps.user.message, visible: true});
+            this.props.onResetDataUser();
         }
     }
 
