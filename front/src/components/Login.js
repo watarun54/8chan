@@ -24,6 +24,11 @@ class Login extends React.Component {
             this.setState({ message: nextProps.user.message, visible: true});
             this.props.onResetDataUser();
         }
+        if (nextProps.user.tokenExpired === 1 || nextProps.todo.tokenExpired === 1) {
+            this.props.onResetDataPosts();
+            this.props.onResetDataUser();
+            this.setState({ message: 'ログインしてください', visible: true});
+        }
     }
 
     componentWillMount() {
